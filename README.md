@@ -1,6 +1,128 @@
 # fika-spt-server-docker (CyberByteCraft Fork)
 
-🐳 SPT + Fika Server in Docker mit **Pterodactyl/Pelican Panel Support** 🐳
+🐳 SPT + Fika Server in Docker with **Pterodactyl/Pelican Panel Support** 🐳
+
+**🌐 Language / Sprache:** [English](#english) | [Deutsch](#deutsch)
+
+---
+
+<a name="english"></a>
+# 🇬🇧 English
+
+> [!NOTE]
+> **This is a fork of [zhliau/fika-spt-server-docker](https://github.com/zhliau/fika-spt-server-docker)**
+> 
+> This project is based on the excellent work of **[@zhliau](https://github.com/zhliau)** and extends it with native Pterodactyl/Pelican Panel support.
+
+---
+
+## 🆕 What's New in This Fork?
+
+| Feature | Original | This Fork |
+|---------|----------|-----------|
+| Pterodactyl/Pelican Support | ❌ | ✅ |
+| Importable Egg File | ❌ | ✅ |
+| `/home/container` Support | ❌ | ✅ |
+| GitHub Actions for Panel Images | ❌ | ✅ |
+
+---
+
+## 🎮 Pterodactyl / Pelican Panel
+
+### Quick Start
+
+1. **Import Egg**
+   - Download [`egg-eft-spt-server.json`](./egg-eft-spt-server.json)
+   - Open Panel → **Admin** → **Nests** → **Import Egg**
+   - Upload file and select nest
+
+2. **Create Server**
+   - **Servers** → **Create New**
+   - Select "EFT SPT Server (Fika)" egg
+   - Assign port **6969**
+   - Start server
+
+> [!TIP]
+> First boot takes a few minutes as SPT files are downloaded.
+
+### Docker Images
+
+| Tag | Description |
+|-----|-------------|
+| `ghcr.io/cyberbytecraft/fika-spt-server-docker:pterodactyl` | **Recommended** for Panel |
+| `ghcr.io/cyberbytecraft/fika-spt-server-docker:latest` | Standard Docker-Compose |
+
+---
+
+## 🐳 Standard Docker (without Panel)
+
+For classic Docker/Docker-Compose usage, see the original documentation:
+**[zhliau/fika-spt-server-docker](https://github.com/zhliau/fika-spt-server-docker)**
+
+### Quick Start with Docker-Compose
+
+```yaml
+services:
+  fika-server:
+    image: ghcr.io/cyberbytecraft/fika-spt-server-docker:latest
+    ports:
+      - 6969:6969
+    environment:
+      - INSTALL_FIKA=true
+      - LISTEN_ALL_NETWORKS=true
+    volumes:
+      - ./server:/opt/server
+```
+
+---
+
+## 🌐 Environment Variables
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `INSTALL_FIKA` | `true` | Install Fika Multiplayer Mod |
+| `AUTO_UPDATE_SPT` | `true` | Auto-update SPT |
+| `AUTO_UPDATE_FIKA` | `true` | Auto-update Fika |
+| `LISTEN_ALL_NETWORKS` | `true` | Listen on all networks (important for Docker) |
+| `ENABLE_PROFILE_BACKUP` | `true` | Enable profile backups |
+| `TZ` | UTC | Timezone (e.g. `Europe/Berlin`) |
+| `FORCE_SPT_VERSION` | - | Force SPT version (e.g. `4.0.1-40087-1eacf0f`) |
+| `FIKA_VERSION` | - | Override Fika version |
+| `NUM_HEADLESS_PROFILES` | - | Number of headless profiles |
+| `INSTALL_OTHER_MODS` | `false` | Auto-install additional mods |
+| `MOD_URLS_TO_DOWNLOAD` | - | URLs for additional mods |
+
+---
+
+## 🙏 Credits
+
+**This project would not be possible without:**
+
+| Project | Author | Description |
+|---------|--------|-------------|
+| [fika-spt-server-docker](https://github.com/zhliau/fika-spt-server-docker) | **[@zhliau](https://github.com/zhliau)** | Original Docker Image & Entrypoint Logic |
+| [SPT (Single Player Tarkov)](https://www.sp-tarkov.com/) | SPT Team | SPT Server & Mods |
+| [Fika](https://github.com/project-fika) | Project Fika Team | Multiplayer Mod for SPT |
+
+> Special thanks to **[@zhliau](https://github.com/zhliau)** for the excellent foundation of this project!
+
+---
+
+## ⚠️ Notes
+
+> [!WARNING]
+> With SPT 4.0.0 and the switch to C#, older versions are no longer supported.
+> For SPT 3.11.4 (LTS), use the original image: `zhliau/fika-spt-server-docker:3.11.4`
+
+> [!WARNING]
+> ARM64 (Raspberry Pi) is currently not supported.
+> See [Issue #33](https://github.com/zhliau/fika-spt-server-docker/issues/33)
+
+---
+---
+
+<a name="deutsch"></a>
+# 🇩🇪 Deutsch
 
 > [!NOTE]
 > **Dies ist ein Fork von [zhliau/fika-spt-server-docker](https://github.com/zhliau/fika-spt-server-docker)**
@@ -87,16 +209,6 @@ services:
 
 ---
 
-## 📦 Features
-
-- ✅ **Pterodactyl/Pelican Panel Ready** - Importierbare Egg-Datei
-- ✅ **Automatische Updates** - SPT & Fika werden automatisch aktualisiert
-- ✅ **Profil-Backups** - Automatische tägliche Backups
-- ✅ **Mod-Installation** - Zusätzliche Mods über URLs installieren
-- ✅ **Multi-Image Support** - Standard & Pterodactyl Images
-
----
-
 ## 🙏 Credits
 
 **Dieses Projekt wäre nicht möglich ohne:**
@@ -123,7 +235,10 @@ services:
 
 ---
 
-## 📄 Lizenz
+## 📄 License / Lizenz
+
+This project is licensed under the same license as the original project.
+See [LICENSE](./LICENSE) for details.
 
 Dieses Projekt steht unter derselben Lizenz wie das Original-Projekt.
 Siehe [LICENSE](./LICENSE) für Details.
