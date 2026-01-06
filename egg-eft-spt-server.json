@@ -1,0 +1,143 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED FOR PTERODACTYL/PELICAN PANEL",
+    "meta": {
+        "version": "PTDL_v2",
+        "update_url": null
+    },
+    "exported_at": "2026-01-06T22:29:00+01:00",
+    "name": "EFT SPT Server (Fika)",
+    "author": "zhliau@github.com",
+    "description": "Escape from Tarkov SPT Server mit optionalem Fika Multiplayer Mod. Basiert auf dem fika-spt-server-docker Image. Unterstützt automatische Updates, Profil-Backups und einfache Mod-Installation.",
+    "features": [],
+    "docker_images": {
+        "Pterodactyl (Recommended)": "ghcr.io/cyberbytecraft/fika-spt-server-docker:pterodactyl",
+        "Latest": "ghcr.io/cyberbytecraft/fika-spt-server-docker:latest"
+    },
+    "file_denylist": [],
+    "startup": "/usr/bin/entrypoint",
+    "config": {
+        "files": "{}",
+        "startup": "{\r\n    \"done\": \"Server is running\"\r\n}",
+        "logs": "{}",
+        "stop": "^C"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!/bin/bash\r\n# EFT SPT Server Installation Script\r\n# Server Files: /mnt/server\r\n\r\necho \"Setting up SPT Server directory...\"\r\nmkdir -p /mnt/server\r\n\r\necho \"Installation complete. The server will download SPT files on first boot.\"\r\necho \"Make sure to configure your environment variables before starting.\"",
+            "container": "ghcr.io/cyberbytecraft/fika-spt-server-docker:pterodactyl",
+            "entrypoint": "bash"
+        }
+    },
+    "variables": [
+        {
+            "name": "Install Fika",
+            "description": "Aktiviert die automatische Installation des Fika Multiplayer Mods. Setze auf 'true' um Fika zu installieren.",
+            "env_variable": "INSTALL_FIKA",
+            "default_value": "true",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|in:true,false",
+            "field_type": "text"
+        },
+        {
+            "name": "Auto Update SPT",
+            "description": "Wenn aktiviert, aktualisiert der Container SPT automatisch bei Versionsfehlanpassung.",
+            "env_variable": "AUTO_UPDATE_SPT",
+            "default_value": "true",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|in:true,false",
+            "field_type": "text"
+        },
+        {
+            "name": "Auto Update Fika",
+            "description": "Wenn aktiviert, aktualisiert der Container Fika automatisch bei Versionsfehlanpassung.",
+            "env_variable": "AUTO_UPDATE_FIKA",
+            "default_value": "true",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|in:true,false",
+            "field_type": "text"
+        },
+        {
+            "name": "Listen All Networks",
+            "description": "Setzt die SPT Server IP automatisch auf 0.0.0.0 um auf allen Netzwerkschnittstellen zu lauschen. Sollte für Docker immer 'true' sein.",
+            "env_variable": "LISTEN_ALL_NETWORKS",
+            "default_value": "true",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|in:true,false",
+            "field_type": "text"
+        },
+        {
+            "name": "Enable Profile Backups",
+            "description": "Aktiviert automatische Profil-Backups (wird von SPT Server nativ unterstützt).",
+            "env_variable": "ENABLE_PROFILE_BACKUP",
+            "default_value": "true",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|in:true,false",
+            "field_type": "text"
+        },
+        {
+            "name": "Timezone",
+            "description": "Zeitzone für den Server. Siehe https://en.wikipedia.org/wiki/List_of_tz_database_time_zones für gültige Werte. Leer lassen für UTC.",
+            "env_variable": "TZ",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string|max:50",
+            "field_type": "text"
+        },
+        {
+            "name": "Force SPT Version",
+            "description": "Erzwingt eine bestimmte SPT Version. Format: VERSION-EFT_BUILD-GIT_SHA (z.B. 4.0.1-40087-1eacf0f). Leer lassen für Standard-Version des Images.",
+            "env_variable": "FORCE_SPT_VERSION",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string|max:50",
+            "field_type": "text"
+        },
+        {
+            "name": "Fika Version",
+            "description": "Überschreibt die Fika Version. Leer lassen für die Standard-Version des Images.",
+            "env_variable": "FIKA_VERSION",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string|max:20",
+            "field_type": "text"
+        },
+        {
+            "name": "Number of Headless Profiles",
+            "description": "Anzahl der automatisch generierten Headless-Profile für Fika. Muss eine Zahl sein.",
+            "env_variable": "NUM_HEADLESS_PROFILES",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|numeric",
+            "field_type": "text"
+        },
+        {
+            "name": "Install Other Mods",
+            "description": "Aktiviert das automatische Herunterladen und Installieren zusätzlicher Mods über URLs.",
+            "env_variable": "INSTALL_OTHER_MODS",
+            "default_value": "false",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|in:true,false",
+            "field_type": "text"
+        },
+        {
+            "name": "Mod URLs to Download",
+            "description": "Leerzeichen-getrennte Liste von URLs zu .zip, .7z oder .dll Dateien die automatisch heruntergeladen und installiert werden sollen.",
+            "env_variable": "MOD_URLS_TO_DOWNLOAD",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string",
+            "field_type": "text"
+        }
+    ]
+}

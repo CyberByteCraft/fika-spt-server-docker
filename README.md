@@ -41,6 +41,7 @@ That's it! The image has everything else you need to run an SPT Server, with Fik
   * [Server starts but I cannot connect to it](#the-server-starts-but-i-cannot-connect-to-it-and-it-doesnt-seem-to-be-listening-on-port-6969)
 - [💻 Development](#-development)
   * [Building](#building)
+- [🎮 Pelican Panel / Pterodactyl](#-pelican-panel--pterodactyl)
 
 
 
@@ -325,3 +326,36 @@ The URL will look like `https://github.com/project-fika/Fika-Server/releases/dow
 
 VERSION=latest FIKA_VERSION=v2.4.8 SPT_SHA=3.11.4 ./build
 ```
+
+# 🎮 Pelican Panel / Pterodactyl
+This image is compatible with [Pelican Panel](https://pelican.dev/) (and [Pterodactyl Panel](https://pterodactyl.io/)). An egg configuration file is provided for easy import.
+
+### Importing the Egg
+1. Download [`egg-eft-spt-server.json`](./egg-eft-spt-server.json) from this repository
+2. In your Panel, go to **Admin Area** → **Nests**
+3. Create a new nest (e.g. "Game Servers") or select an existing one
+4. Click **Import Egg** (green button)
+5. Upload the `egg-eft-spt-server.json` file
+6. Select the nest to associate with the egg
+7. Click **Import**
+
+### Creating a Server
+1. Go to **Servers** → **Create New**
+2. Select the "EFT SPT Server (Fika)" egg
+3. Configure the variables as needed:
+   - `Install Fika`: Set to `true` to enable Fika multiplayer
+   - `Listen All Networks`: Should be `true` for proper connectivity
+   - Other variables are optional and have sensible defaults
+4. Allocate port **6969** to the server
+5. Create and start the server
+
+> [!NOTE]
+> The first boot will take some time as the server downloads and extracts the SPT files.
+
+### Available Docker Images
+The egg provides multiple image versions:
+- `Latest`: Always the most recent stable version
+- `SPT 4.0.11`: Specific version tag
+- `SPT 4.0.3`: Older version tag
+
+You can select the image version when creating or editing a server in the panel.

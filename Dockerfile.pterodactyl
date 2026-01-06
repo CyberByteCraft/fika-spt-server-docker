@@ -1,0 +1,53 @@
+FROM mcr.microsoft.com/dotnet/aspnet:9.0-bookworm-slim
+
+# Pterodactyl/Pelican Panel compatible Dockerfile
+# Uses /home/container as working directory with container user
+
+RUN apt update && apt install -y --no-install-recommends \
+    curl \
+    aria2 \
+    ca-certificates \
+    unzip \
+    7zip \
+    vim \
+    cron \
+    exiftool \
+    jq \
+    dos2unix
+
+ARG SPT_VERSION=4.0.11-40087-278e72b
+ARG FIKA_VERSION=2.1.0
+ENV SPT_VERSION=$SPT_VERSION
+ENV FIKA_VERSION=$FIKA_VERSION
+
+# Pterodactyl requirements
+ENV HOME=/home/container
+ENV USER=container
+WORKDIR /home/container
+
+# Create container user for Pterodactyl
+RUN useradd -m -d /home/container -s /bin/bash container
+
+# Download SPT to build directory
+WORKDIR /opt/build
+RUN curl -sL "https://spt-releases.modd.in/SPT-${SPT_VERSION}.7z" -o spt.7z
+RUN 7zz x spt.7z
+
+# Copy scripts
+COPY entrypoint-pterodactyl.sh /usr/bin/entrypoint
+COPY scripts/backup.sh /usr/bin/backup
+COPY scripts/download_unzip_install_mods.sh /usr/bin/download_unzip_install_mods
+COPY data/cron/cron_backup_spt /etc/cron.d/cron_backup_spt
+RUN dos2unix /usr/bin/entrypoint /usr/bin/backup /usr/bin/download_unzip_install_mods /etc/cron.d/cron_backup_spt && \
+    chmod +x /usr/bin/entrypoint /usr/bin/backup /usr/bin/download_unzip_install_mods /etc/cron.d/cron_backup_spt
+
+# Set working directory back to home
+WORKDIR /home/container
+
+# Pterodactyl uses port 6969 for SPT
+EXPOSE 6969
+
+# Use container user
+USER container
+
+ENTRYPOINT ["/bin/bash", "/usr/bin/entrypoint"]
