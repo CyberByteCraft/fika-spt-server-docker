@@ -29,5 +29,8 @@ RUN dos2unix /usr/bin/entrypoint /usr/bin/backup /usr/bin/download_unzip_install
     chmod +x /usr/bin/entrypoint /usr/bin/backup /usr/bin/download_unzip_install_mods /etc/cron.d/cron_backup_spt
 
 # Docker desktop doesn't allow you to configure port mappings unless this is present
+# Port 6969: SPT Server (HTTPS/WebSocket)
+# Port 6790: Fika NatPunch Server (UDP) for P2P multiplayer
 EXPOSE 6969
+EXPOSE 6790/udp
 ENTRYPOINT ["/usr/bin/entrypoint"]

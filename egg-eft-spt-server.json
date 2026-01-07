@@ -7,7 +7,7 @@
     "exported_at": "2026-01-06T22:29:00+01:00",
     "name": "EFT SPT Server (Fika)",
     "author": "zhliau@github.com",
-    "description": "Escape from Tarkov SPT Server mit optionalem Fika Multiplayer Mod. Basiert auf dem fika-spt-server-docker Image. Unterstützt automatische Updates, Profil-Backups und einfache Mod-Installation.",
+    "description": "Escape from Tarkov SPT Server mit optionalem Fika Multiplayer Mod. Basiert auf dem fika-spt-server-docker Image. Unterstützt automatische Updates, Profil-Backups und einfache Mod-Installation. WICHTIG: Für Fika Multiplayer werden zwei Ports benötigt: 6969 (TCP) für den SPT Server und 6790 (UDP) für Fika NatPunch P2P-Verbindungen.",
     "features": [],
     "docker_images": {
         "Pterodactyl (Recommended)": "ghcr.io/cyberbytecraft/fika-spt-server-docker:pterodactyl",

@@ -39,7 +39,7 @@
 2. **Create Server**
    - **Servers** → **Create New**
    - Select "EFT SPT Server (Fika)" egg
-   - Assign port **6969**
+   - Assign ports: **6969** (TCP) + **6790** (UDP for Fika P2P)
    - Start server
 
 > [!TIP]
@@ -66,7 +66,8 @@ services:
   fika-server:
     image: ghcr.io/cyberbytecraft/fika-spt-server-docker:latest
     ports:
-      - 6969:6969
+      - 6969:6969        # SPT Server (HTTPS/WebSocket)
+      - 6790:6790/udp    # Fika NatPunch (P2P Multiplayer)
     environment:
       - INSTALL_FIKA=true
       - LISTEN_ALL_NETWORKS=true
@@ -154,7 +155,7 @@ services:
 2. **Server erstellen**
    - **Servers** → **Create New**
    - Egg "EFT SPT Server (Fika)" auswählen
-   - Port **6969** zuweisen
+   - Ports zuweisen: **6969** (TCP) + **6790** (UDP für Fika P2P)
    - Server starten
 
 > [!TIP]
@@ -181,7 +182,8 @@ services:
   fika-server:
     image: ghcr.io/cyberbytecraft/fika-spt-server-docker:latest
     ports:
-      - 6969:6969
+      - 6969:6969        # SPT Server (HTTPS/WebSocket)
+      - 6790:6790/udp    # Fika NatPunch (P2P Multiplayer)
     environment:
       - INSTALL_FIKA=true
       - LISTEN_ALL_NETWORKS=true
